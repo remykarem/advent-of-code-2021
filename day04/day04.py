@@ -98,3 +98,6 @@ def main():
     generator[k-1] * state[winners[0]].sum()
     
     f.close()
+
+if __name__ == "__main__":
+    main()

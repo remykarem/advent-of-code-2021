@@ -42,13 +42,19 @@ def get_ratings(arr: list) -> tuple:
 def main():
 
     f = open("day03.txt", "r")
-    f.seek(0)
     arr = (
         iterate(f)
         .map(lambda line: line.strip())
         .map(lambda line: [int(x) for x in line])
         .to_list()
     )
-    a, b = get_ratings(arr)
+
+    a, b = get_ratings(arr) # recursion
     print(a*b)
+    
     f.close()
+
+
+if __name__ == "__main__":
+    main()
+    
