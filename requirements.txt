@@ -1,0 +1,2 @@
+git+git://github.com/remykarem/pyterator#egg=pyterator
+numpy
