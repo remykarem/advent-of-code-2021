@@ -1,3 +1,5 @@
+# Day 1
+
 **Functional programming**
 
 First solution uses a lot of iterators and got a bit confusing towards the end.

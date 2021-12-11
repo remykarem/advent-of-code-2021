@@ -1,3 +1,5 @@
+# Day 6
+
 **Recursion**
 
 Solved this initially using recursion and mutating the initial state *d* times 😱 where *d* is the number of days. This worked for the first part but in the second part the process got killed 🤭. Both space and time complexity possibly exponential.
