@@ -2,10 +2,21 @@ from typing import Callable, Tuple
 from dataclasses import dataclass
 from pyterator import iterate
 
-def parse(instruction: str) -> Tuple[str, int]:
+@dataclass
+class BearingRelative:
+    pos: int
+    depth: Callable
+    aim: int
+
+@dataclass
+class Bearing:
+    pos: int
+    depth: int
+    aim: int
+
+def parse_instruction(instruction: str) -> Tuple[str, int]:
     cmd, value = instruction.strip().split()
-    value = int(value)
-    return cmd, value
+    return cmd, int(value)
 
 def convert_to_tuple(cmd: str, value: int) -> tuple:
     if cmd == "forward":
@@ -20,31 +31,19 @@ def add_tuples(a: tuple, b: tuple) -> tuple:
     y = a[1] + b[1]
     return x, y
 
-@dataclass
-class BearingRelative:
-    pos: int
-    depth: Callable
-    aim: int
-
-@dataclass
-class Bearing:
-    pos: int
-    depth: int
-    aim: int
-
-def accumulate(prev: Bearing, curr: BearingRelative) -> tuple:
-    pos = prev.pos + curr.pos
+def accumulate(prev: Bearing, curr: BearingRelative) -> Bearing:
+    pos   = prev.pos + curr.pos
     depth = prev.depth + curr.depth(prev.aim)
-    aim = prev.aim + curr.aim
+    aim   = prev.aim + curr.aim
     return Bearing(pos, depth, aim)
 
 def convert_to_relative(cmd: str, value: int) -> BearingRelative:
     if cmd == "forward":
-        return BearingRelative(value, lambda aim: aim*value, 0)
+        return BearingRelative(value, lambda aim: aim*value,      0)
     elif cmd == "down":
-        return BearingRelative(0, lambda x: 0, value)
+        return BearingRelative(    0, lambda aim: 0,          value)
     else:
-        return BearingRelative(0, lambda x: 0, -value)
+        return BearingRelative(    0, lambda aim: 0,         -value)
 
 
 def main():
@@ -54,7 +53,7 @@ def main():
     f.seek(0)
     m, n = (
         iterate(f)
-        .map(parse)
+        .map(parse_instruction)
         .starmap(convert_to_tuple)
         .reduce(add_tuples)
     )
@@ -64,7 +63,7 @@ def main():
     f.seek(0)
     bearing = (
         iterate(f)
-        .map(parse)
+        .map(parse_instruction)
         .starmap(convert_to_relative)
         .reduce(accumulate, Bearing(0,0,0))
     )
