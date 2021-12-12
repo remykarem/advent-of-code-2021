@@ -9,3 +9,5 @@ We define the problem as such:
 so that we can define it recursively. Here, a 1-point indicates a unique path.
 
 There is also a data structure called `node2children` that keeps track of a node's possible connections.
+
+Solution does not include memoisation.
