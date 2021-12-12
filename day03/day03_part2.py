@@ -44,7 +44,7 @@ def main():
     f = open("day03.txt", "r")
     arr = (
         iterate(f)
-        .map(lambda line: line.strip())
+        .map(str.strip)
         .map(lambda line: [int(x) for x in line])
         .to_list()
     )
