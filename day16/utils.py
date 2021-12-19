@@ -1,7 +1,6 @@
-from typing import List
+from day16types import Binary, Stream
+from pyterator import iterate
 
-
-Binary = List[str]
 
 
 def hexchar2bin(ch: str) -> str:
@@ -9,3 +8,6 @@ def hexchar2bin(ch: str) -> str:
 
 def binary2decimal(binary: Binary) -> int:
     return int("".join(binary), 2)
+
+def hex2stream(hex_str: str) -> Stream:
+    return iterate(hex_str).flat_map(hexchar2bin)

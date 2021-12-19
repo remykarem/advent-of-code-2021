@@ -1,4 +1,4 @@
-from day16.day16 import binary2decimal, hex2stream, hexchar2bin
+from utils import binary2decimal, hex2stream, hexchar2bin
 
 
 assert hexchar2bin("0") == "0000"
