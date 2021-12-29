@@ -1,4 +1,4 @@
-# Day 19
+# Day 20
 
 Went with 2D convolution using NumPy. Used NumPy's stride trick to perform 2D convolution on a padded array.
 
